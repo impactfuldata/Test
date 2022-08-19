@@ -4,6 +4,7 @@ This script contains the classes required by the guess_the_number.py
 # import modules
 import sys
 from random import randint
+import pandas as pd
 
 # create class 
 class GuessTheNumber:
@@ -12,6 +13,7 @@ class GuessTheNumber:
         -> Users to be welcomed to the game
         -> Computer to randomly choose a number
         -> Users to make a choice and for this to be compared it to the computer choice 
+        -> A log of user choices and computer choice is created 
     """
 
     def __init__(self) -> None:
@@ -59,7 +61,8 @@ class GuessTheNumber:
     def user_guess_computer_choice_compare(self) -> None:
         """
         Users makes a choice (upto 10 times) and this is compared to the computer choice 
-
+        A log of user choices and computer choice is created 
+        
         Args
             NA
 
@@ -67,23 +70,37 @@ class GuessTheNumber:
             None
         """
         ## Users can make a choice upto 10 times
-        user_guess_count = 1
-        while user_guess_count <= 10:
+        self.user_guess_log = []
+        self.user_guess_count_log = []
+        self.user_guess_count = 1
         
-        ## Users make their choice
+        while self.user_guess_count <= 10:
+        
+        ## users make their choice
             self.user_guess = int(input("What do you think the number is?: "))
-        
-        ## Users provided with feedback on their guess: correct 
+            self.user_guess_log.append(self.user_guess)
+            self.user_guess_count_log.append(self.user_guess_count)
+
+        ## users provided with feedback on their guess: correct 
             if self.user_guess == self.computer_number:
                 print("You have guessed the number correctly.")
                 break
 
-         ## Users provided with feedback on their guess: too high    
+         ## users provided with feedback on their guess: too high    
             elif self.user_guess > self.computer_number:
                 print("Your guess is too high.")
-                user_guess_count += 1
+                self.user_guess_count += 1
         
-        ## Users provided with feedback on their guess: too low
+        ## users provided with feedback on their guess: too low
             elif self.user_guess < self.computer_number:
                 print("Your guess is too low.")
-                user_guess_count += 1
+                self.user_guess_count += 1
+
+        ## get the logs
+        self.logs = pd.DataFrame.from_dict({
+                                "Computer guess" : [self.computer_number],
+                                "User guess number" : self.user_guess_count_log,
+                                "User guess" : self.user_guess_log
+                                }, orient="index")
+
+        self.logs.to_csv("logs.csv", header=None)
