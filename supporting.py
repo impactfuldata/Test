@@ -17,6 +17,12 @@ class GuessTheNumber:
     def __init__(self) -> None:
         """
         Users are welcomed to the game and asked if they want to play the game 
+
+        Args
+            NA
+
+        Returns
+            None
         """    
         ## Users are welcomed to the game
         welcome_message = "In this game, you have to guess the number I have chosen."
@@ -36,6 +42,12 @@ class GuessTheNumber:
     def computer_choice(self) -> int:
         """
         Computer randomly chooses a number from 0 to 100
+
+        Args
+            NA
+
+        Returns
+            self.computer_number: randomly chosen number from 0 to 100 (both included): int
         """
         ## Computer choose a number from 0 to 100
         self.computer_number = randint(0, 100)
@@ -47,6 +59,12 @@ class GuessTheNumber:
     def user_guess_computer_choice_compare(self) -> None:
         """
         Users makes a choice (upto 10 times) and this is compared to the computer choice 
+
+        Args
+            NA
+
+        Returns
+            None
         """
         ## Users can make a choice upto 10 times
         user_guess_count = 1
